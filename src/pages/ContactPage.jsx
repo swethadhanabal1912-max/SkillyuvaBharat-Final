@@ -44,7 +44,7 @@ const QUICK_CONTACTS = [
   {
     icon: <Phone size={22} />,
     title: "Call Our Helpline",
-    detail: "+91 98765 43210",
+    detail: "+91 80151 01016",
     sub: "Mon–Sat, 9 AM – 7 PM",
     accent: "#E8650A",
   },
@@ -59,7 +59,7 @@ const QUICK_CONTACTS = [
   {
     icon: <MessageCircle size={22} />,
     title: "WhatsApp Us",
-    detail: "+91 98765 43210",
+    detail: "+91 80151 01016",
     sub: "Fastest way to reach us",
     accent: "#111111",
   },

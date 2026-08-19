@@ -337,7 +337,7 @@ export default function Footer() {
             <div className="text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#222] mb-5">Support</div>
             <ul className="list-none p-0 m-0 space-y-3">
               <li><a href="#contact" className="text-sm text-[#444] no-underline font-semibold transition-colors hover:text-[#1A7A2E]">Help Center</a></li>
-              <li><a href="tel:+911800123456" className="text-sm text-[#444] no-underline font-semibold transition-colors hover:text-[#1A7A2E]">+91 98765 43210 || +91 98765 43210</a></li>
+              <li><a href="tel:+911800123456" className="text-sm text-[#444] no-underline font-semibold transition-colors hover:text-[#1A7A2E]">+91 80151 01016</a></li>
               <li><a href="mailto:info@skillyuvabharat.com" className="text-sm text-[#444] no-underline font-semibold transition-colors hover:text-[#1A7A2E]">info@skillyuvabharat.com</a></li>
             </ul>
           </div>
