@@ -17,15 +17,15 @@ const features = [
 ];
 
 const floatingStats = [
-  { icon: <Users size={16} />, value: "2.5L+", label: "Candidates", bg: "bg-orange-50", color: BRAND.saffron },
-  { icon: <Briefcase size={16} />, value: "5000+", label: "Recruiters", bg: "bg-blue-50", color: BRAND.navy },
-  { icon: <ShieldCheck size={16} />, value: "1200+", label: "Job Fairs", bg: "bg-green-50", color: BRAND.green },
+  { icon: <Users size={16} />, value: "50K+", label: "Candidates", bg: "bg-orange-50", color: BRAND.saffron },
+  { icon: <Briefcase size={16} />, value: "500+", label: "Recruiters", bg: "bg-blue-50", color: BRAND.navy },
+  { icon: <ShieldCheck size={16} />, value: "7", label: "Job Fairs", bg: "bg-green-50", color: BRAND.green },
 ];
 
 const bottomStats = [
-  { icon: <Users size={20} />, value: "2.5L+", label: "Happy Candidates", sub: "Placed & Growing", color: BRAND.saffron, bg: "bg-orange-50" },
-  { icon: <Briefcase size={20} />, value: "1200+", label: "Job Fairs Conducted", sub: "Across 28 States", color: BRAND.navy, bg: "bg-blue-50" },
-  { icon: <Handshake size={20} />, value: "5000+", label: "Employer Partners", sub: "Trusting Our Platform", color: BRAND.green, bg: "bg-green-50" },
+  { icon: <Users size={20} />, value: "25K+", label: "Happy Candidates", sub: "Placed & Growing", color: BRAND.saffron, bg: "bg-orange-50" },
+  { icon: <Briefcase size={20} />, value: "7", label: "Job Fairs Conducted", sub: "Across 6 States", color: BRAND.navy, bg: "bg-blue-50" },
+  { icon: <Handshake size={20} />, value: "500+", label: "Employer Partners", sub: "Trusting Our Platform", color: BRAND.green, bg: "bg-green-50" },
   { icon: <Rocket size={20} />, value: "85%+", label: "Placement Success", sub: "Rate Across Fairs", color: BRAND.purple, bg: "bg-purple-50" },
 ];
 
@@ -46,19 +46,18 @@ export default function AboutHero() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 bg-white border border-[#E8650A]/30 rounded-lg px-5 py-2 text-[11px] font-black uppercase tracking-widest mb-8"
-              style={{ color: BRAND.saffron }}
+              className="inline-flex items-center gap-2 bg-white border border-[#E8650A]/30 rounded-lg px-5 py-2 text-[11px] font-black uppercase tracking-widest mb-8 text-[#E8650A]"
             >
               <Star size={13} fill={BRAND.saffron} /> About Skill Yuva Bharat
             </motion.span>
 
             <h1 className="text-5xl md:text-6xl font-black leading-[1.05] tracking-tight mb-6">
-              <span style={{ color: BRAND.navy }}>Building Bharat.</span>
+              <span className="text-[#000080]">Building Bharat.</span>
               <br />
-              <span className="italic font-serif" style={{ color: BRAND.saffron }}>Empowering Youth.</span>
+              <span className="italic font-serif text-[#E8650A]">Empowering Youth.</span>
             </h1>
 
-            <div className="w-16 h-1 rounded-full mb-6" style={{ backgroundColor: BRAND.saffron }} />
+            <div className="w-16 h-1 rounded-full mb-6 bg-[#E8650A]" />
 
             <p className="text-gray-600 text-base leading-relaxed max-w-xl mb-10">
               Skill Yuva Bharat is a pan-India initiative on a mission to connect talent
@@ -99,8 +98,7 @@ export default function AboutHero() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="group inline-flex items-center gap-2 text-white font-black text-[13px] px-8 py-4 rounded-lg shadow-lg"
-                style={{ backgroundColor: BRAND.saffron }}
+                className="group inline-flex items-center gap-2 text-white font-black text-[13px] px-8 py-4 rounded-lg shadow-lg bg-[#E8650A]"
               >
                 Our Journey
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -125,12 +123,9 @@ export default function AboutHero() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative"
           >
-            <div
-              className="absolute -right-10 top-6 w-[85%] h-[85%] rounded-full opacity-90 -z-10"
-              style={{ background: `linear-gradient(135deg, ${BRAND.saffron}, #ffb066)` }}
-            />
+            <div className="absolute -right-10 top-6 w-[85%] h-[85%] rounded-full opacity-90 -z-10 bg-[linear-gradient(135deg,#E8650A,#ffb066)]" />
 
-            <div className="absolute -top-6 right-8 z-20" style={{ width: 110, height: 90 }}>
+            <div className="absolute -top-6 right-8 z-20 w-[110px] h-[90px]">
               <svg
                 className="absolute inset-0 pointer-events-none"
                 width="110" height="90" viewBox="0 0 110 90" fill="none"
@@ -178,10 +173,7 @@ export default function AboutHero() {
               mobile) and let width follow from that — so the image always
               fits within one screen instead of dictating page height.
             */}
-            <div
-              className="relative rounded-[2rem] overflow-hidden shadow-2xl w-full max-w-[480px] mx-auto max-h-[58vh] sm:max-h-[64vh] lg:max-h-[70vh]"
-              style={{ aspectRatio: "520 / 830" }}
-            >
+            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl w-full max-w-[480px] mx-auto max-h-[58vh] sm:max-h-[64vh] lg:max-h-[70vh] aspect-[520/830]">
               <img
                 src="/images/hero-about-boy.png"
                 alt="Skill Yuva Bharat — youth opportunity"
@@ -251,7 +243,7 @@ export default function AboutHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-6"
+            className="fixed inset-0 z-[1100] bg-black/80 flex items-center justify-center p-6"
             onClick={() => setShowVideo(false)}
           >
             <motion.div
@@ -265,13 +257,13 @@ export default function AboutHero() {
             >
               <button
                 onClick={() => setShowVideo(false)}
-                className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-50"
+                className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-[1200]"
               >
                 <X size={18} />
               </button>
 
               <video
-                src="/image/Skill India Job Opportunities.mp4"
+                src="/images/video.mp4"
                 controls
                 autoPlay
                 // Macha, 'object-contain' is the key here. It shows the full video without cutting.

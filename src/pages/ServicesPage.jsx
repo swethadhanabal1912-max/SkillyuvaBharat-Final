@@ -117,204 +117,124 @@ export default function ServicesPage() {
   }, []);
 
   return (
-    <div style={{ background: '#FBF0E1', minHeight: '100vh', fontFamily: 'Raleway, sans-serif' }}>
+    <div className="min-h-screen font-[Raleway,sans-serif]" style={{ background: '#FBF0E1' }}>
+      {/* Only things Tailwind's utility classes truly can't express (a custom keyframe
+          animation and a couple of exact CSS-variable-driven accent colors) live here. */}
       <style>{`
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
-        .hero { background: #F4D8BE; padding: 120px 0 110px; text-align: center; position: relative; overflow: hidden; }
-        .hero-curve { position: absolute; bottom: -1px; left: 0; width: 100%; height: 90px; display: block; }
-
-        .svc-head, .sec-head { text-align: center; max-width: 620px; margin: 0 auto 10px; }
-        .svc-head .label { font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: #E8650A; }
-        .sec-head .label { font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: #1A7A2E; }
-        .svc-head h2, .sec-head h2 { font-size: 30px; font-weight: 900; margin: 12px 0 10px; letter-spacing: -0.5px; }
-        .svc-head p, .sec-head p { color: #666; font-size: 14.5px; line-height: 1.6; margin-bottom: 50px; }
-
-        /* ---------- SERVICES: numbered editorial list inside a lifted white card ---------- */
-        .svc-list {
-          background: #fff;
-          border: 1px solid rgba(0,0,0,0.06);
-          border-radius: 20px;
-          box-shadow: 0 16px 40px rgba(0,0,0,0.05);
-          padding: 10px 36px;
-        }
-        .svc-row {
-          display: grid; grid-template-columns: 70px 1fr; gap: 24px;
-          padding: 34px 0; border-bottom: 1px solid rgba(0,0,0,0.08);
-          position: relative; transition: padding-left 0.25s ease;
-        }
-        .svc-row:last-child { border-bottom: none; }
-        .svc-row::before {
-          content: ''; position: absolute; left: -20px; top: 0; bottom: 0; width: 3px;
-          background: var(--accent); transform: scaleY(0); transform-origin: center;
-          transition: transform 0.25s ease;
-        }
-        .svc-row:hover { padding-left: 20px; }
-        .svc-row:hover::before { transform: scaleY(1); }
-        .svc-num { font-size: 40px; font-weight: 900; color: rgba(0,0,0,0.1); line-height: 1; transition: color 0.25s ease; }
-        .svc-row:hover .svc-num { color: var(--accent); }
-        .svc-body-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
-        .svc-icon { color: var(--accent); display: flex; }
-        .svc-title { font-size: 19px; font-weight: 800; margin: 0; }
-        .svc-tag { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 9px; border-radius: 5px; color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
-        .svc-desc { font-size: 14.5px; color: #666; line-height: 1.65; margin: 0 0 14px; max-width: 560px; }
-        .svc-points { display: flex; flex-wrap: wrap; gap: 8px; }
-        .svc-point { font-size: 12px; font-weight: 700; color: #444; background: #F9F9F9; border: 1px solid rgba(0,0,0,0.08); padding: 5px 12px; border-radius: 99px; }
-
-        /* ---------- SECTORS: boxed card grid ---------- */
-        .sec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; padding-bottom: 100px; align-items: start; }
-        .sec-card {
-          background: #fff; border: 1px solid rgba(0,0,0,0.06); border-left: 4px solid var(--accent);
-          border-radius: 4px 14px 14px 4px;
-          padding: 20px 20px 20px 22px; cursor: pointer; transition: box-shadow 0.2s ease, border-color 0.2s ease;
-        }
-        .sec-card:hover { box-shadow: 0 10px 26px rgba(0,0,0,0.06); }
-        .sec-card-top { display: flex; align-items: center; gap: 16px; }
-        .sec-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .sec-card h4 { font-size: 15px; font-weight: 800; margin: 0; line-height: 1.3; flex: 1; }
-        .sec-chev { color: #ccc; flex-shrink: 0; transition: transform 0.25s ease; }
-        .sec-card.open .sec-chev { transform: rotate(180deg); color: #E8650A; }
-        .sec-desc { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, margin-top 0.3s ease; margin-top: 0; }
-        .sec-card.open .sec-desc { max-height: 120px; margin-top: 14px; }
-        .sec-desc p { font-size: 13px; color: #666; line-height: 1.6; margin: 0; padding-left: 62px; }
-
-        @media (max-width: 900px) { .sec-grid { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 560px) { .sec-grid { grid-template-columns: 1fr; } }
-
-        @media (max-width: 640px) {
-          .svc-list { padding: 6px 20px; border-radius: 16px; }
-          .svc-row { grid-template-columns: 44px 1fr; gap: 14px; padding: 26px 0; }
-          .svc-num { font-size: 26px; }
-          .svc-title { font-size: 17px; }
-        }
-
-        /* ---------- HOW IT WORKS: horizontal animated timeline ---------- */
-        .hiw-wrap { padding: 40px 0 110px; }
-        .hiw-block { margin-bottom: 70px; }
-        .hiw-block:last-child { margin-bottom: 0; }
-        .hiw-block-head { display: flex; align-items: center; gap: 12px; margin-bottom: 34px; }
-        .hiw-block-icon {
-          width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center;
-          justify-content: center; flex-shrink: 0;
-        }
-        .hiw-block-head h3 { font-size: 19px; font-weight: 900; margin: 0; }
-        .hiw-block-head span { font-size: 13px; color: #888; font-weight: 500; }
-
-        .hiw-h-track { position: relative; overflow-x: auto; overflow-y: hidden; padding-bottom: 6px; }
-        .hiw-h-steps { display: flex; position: relative; min-width: 780px; padding-top: 22px; }
-        .hiw-h-line-bg {
-          position: absolute; top: 22px; left: calc(100% / 12); right: calc(100% / 12);
-          height: 3px; background: rgba(0,0,0,0.08); border-radius: 3px;
-        }
-        .hiw-h-line-fill {
-          position: absolute; top: 22px; left: calc(100% / 12); height: 3px; width: 0;
-          background: var(--accent); border-radius: 3px;
-          transition: width 5s cubic-bezier(0.65, 0, 0.35, 1);
-        }
-        .hiw-h-line-fill.animate { width: calc(100% - (100% / 6)); }
-
-        .hiw-h-runner {
-          position: absolute; top: 22px; width: 36px; height: 36px; margin-top: -18px;
-          left: calc((100% / 12) - 18px);
-          border-radius: 50%; background: #fff; color: var(--accent);
-          border: 3px solid var(--accent); display: flex; align-items: center; justify-content: center;
-          z-index: 3; box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-          transition: left 5s cubic-bezier(0.65, 0, 0.35, 1);
-        }
-        .hiw-h-runner.animate { left: calc((100% - (100% / 12)) - 18px); }
-        .hiw-h-runner svg { animation: hiw-bob 0.6s ease-in-out infinite alternate; }
-        .hiw-h-runner:not(.animate) svg { animation: none; }
-
         @keyframes hiw-bob {
           from { transform: translateY(0); }
           to { transform: translateY(-2px); }
         }
-
-        .hiw-h-step {
-          position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column;
-          align-items: center; text-align: center; padding: 0 12px;
-          opacity: 0; transform: translateY(10px);
-          transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .hiw-h-step.animate { opacity: 1; transform: translateY(0); }
-        .hiw-h-num {
-          width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center;
-          justify-content: center; font-size: 13.5px; font-weight: 800; color: #fff;
-          background: var(--accent); border: 4px solid #FBF0E1; flex-shrink: 0;
-          box-shadow: 0 0 0 1px rgba(0,0,0,0.06);
-        }
-        .hiw-h-step h4 { font-size: 13.5px; font-weight: 800; margin: 14px 0 6px; }
-        .hiw-h-step p { font-size: 12px; color: #666; line-height: 1.55; margin: 0; }
-
-        @media (max-width: 800px) {
-          .hiw-h-steps { min-width: 620px; }
-          .hiw-h-step h4 { font-size: 12.5px; }
-          .hiw-h-step p { font-size: 11.5px; }
-        }
       `}</style>
 
-      <section className="hero">
-        <div className="container">
-          <span style={{ fontSize: '11px', fontWeight: 800, color: '#1A7A2E', letterSpacing: '2px' }}>OUR CAPABILITIES</span>
-          <h1 style={{ fontSize: '48px', fontWeight: 900, margin: '15px 0' }}>Hiring at scale, without the <span style={{ color: '#E8650A', fontStyle: 'italic', fontFamily: 'Crimson Pro' }}>chaos.</span></h1>
-          <p style={{ maxWidth: '600px', margin: '0 auto', color: '#666' }}>Whether you're hiring 50 people or 5,000, we run the fair, source the candidates, and manage the room.</p>
+      {/* ---------- HERO ---------- */}
+      <section className="relative overflow-hidden pt-[120px] pb-[110px] text-center" style={{ background: '#F4D8BE' }}>
+        <div className="mx-auto max-w-[1000px] px-6">
+          <span className="text-[11px] font-extrabold tracking-[2px]" style={{ color: '#1A7A2E' }}>OUR CAPABILITIES</span>
+          <h1 className="my-[15px] text-[48px] font-black">
+            Hiring at scale, without the{' '}
+            <span className="font-[Crimson_Pro] italic" style={{ color: '#E8650A' }}>chaos.</span>
+          </h1>
+          <p className="mx-auto max-w-[600px] text-[#666]">
+            Whether you're hiring 50 people or 5,000, we run the fair, source the candidates, and manage the room.
+          </p>
         </div>
-        <svg className="hero-curve" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+        <svg className="absolute -bottom-px left-0 block w-full" style={{ height: 90 }} viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
           <path d="M0,0 C300,90 900,90 1200,0 L1200,90 L0,90 Z" fill="#FBF0E1" />
         </svg>
       </section>
 
-      <div className="container" style={{ paddingTop: 70 }}>
-        <div className="svc-head">
-          <span className="label">Our Services</span>
-          <h2>Covering both sides of <span style={{ color: '#1A7A2E', fontStyle: 'italic', fontFamily: 'Crimson Pro' }}>the hiring journey.</span></h2>
-          <p>From the first job fair to the final offer letter — six services that support job seekers and employers at every step.</p>
+      <div className="mx-auto max-w-[1000px] px-6 pt-[70px]">
+        {/* ---------- SERVICES ---------- */}
+        <div className="mx-auto mb-2.5 max-w-[620px] text-center">
+          <span className="text-[11px] font-extrabold uppercase tracking-[0.18em]" style={{ color: '#E8650A' }}>Our Services</span>
+          <h2 className="my-3 text-[30px] font-black tracking-[-0.5px]">
+            Covering both sides of{' '}
+            <span className="font-[Crimson_Pro] italic" style={{ color: '#1A7A2E' }}>the hiring journey.</span>
+          </h2>
+          <p className="mb-[50px] text-[14.5px] leading-[1.6] text-[#666]">
+            From the first job fair to the final offer letter — six services that support job seekers and employers at every step.
+          </p>
         </div>
 
-        <div className="svc-list">
+        <div className="rounded-[20px] border border-black/[0.06] bg-white px-9 py-2.5 shadow-[0_16px_40px_rgba(0,0,0,0.05)] sm:px-[36px]">
           {SERVICES.map((s, i) => (
-            <div key={i} className="svc-row" style={{ '--accent': s.accent }}>
-              <div className="svc-num">{String(i + 1).padStart(2, '0')}</div>
+            <div
+              key={i}
+              className="group relative grid grid-cols-[44px_1fr] gap-3.5 border-b border-black/[0.08] py-[26px] transition-[padding-left] duration-200 last:border-b-0 hover:pl-5 sm:grid-cols-[70px_1fr] sm:gap-6 sm:py-[34px]"
+              style={{ '--accent': s.accent }}
+            >
+              <div
+                className="absolute -left-5 top-0 bottom-0 w-[3px] origin-center scale-y-0 transition-transform duration-200 group-hover:scale-y-100"
+                style={{ background: 'var(--accent)' }}
+              />
+              <div className="text-[26px] font-black leading-none text-black/10 transition-colors duration-200 group-hover:text-[var(--accent)] sm:text-[40px]">
+                {String(i + 1).padStart(2, '0')}
+              </div>
               <div>
-                <div className="svc-body-top">
-                  <span className="svc-icon">{s.icon}</span>
-                  <h3 className="svc-title">{s.title}</h3>
-                  <span className="svc-tag">{s.tag}</span>
+                <div className="mb-2 flex flex-wrap items-center gap-3">
+                  <span className="flex" style={{ color: 'var(--accent)' }}>{s.icon}</span>
+                  <h3 className="text-[17px] font-extrabold sm:text-[19px]">{s.title}</h3>
+                  <span
+                    className="rounded-md px-[9px] py-[3px] text-[10px] font-extrabold uppercase tracking-[0.05em]"
+                    style={{ color: s.accent, background: `${s.accent}1A` }}
+                  >
+                    {s.tag}
+                  </span>
                 </div>
-                <p className="svc-desc">{s.desc}</p>
-                <div className="svc-points">
-                  {s.points.map((p, idx) => <span key={idx} className="svc-point">{p}</span>)}
+                <p className="mb-3.5 max-w-[560px] text-[14.5px] leading-[1.65] text-[#666]">{s.desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {s.points.map((p, idx) => (
+                    <span key={idx} className="rounded-full border border-black/[0.08] bg-[#F9F9F9] px-3 py-[5px] text-xs font-bold text-[#444]">
+                      {p}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div style={{ marginTop: 90 }}>
-          <div className="sec-head">
-            <span className="label">Sectors We Cover</span>
-            <h2>Every industry, <span style={{ color: '#E8650A', fontStyle: 'italic', fontFamily: 'Crimson Pro' }}>one platform.</span></h2>
-            <p>Tap a sector to see the kinds of roles typically available.</p>
+        {/* ---------- SECTORS ---------- */}
+        <div className="mt-[90px]">
+          <div className="mx-auto mb-2.5 max-w-[620px] text-center">
+            <span className="text-[11px] font-extrabold uppercase tracking-[0.18em]" style={{ color: '#1A7A2E' }}>Sectors We Cover</span>
+            <h2 className="my-3 text-[30px] font-black tracking-[-0.5px]">
+              Every industry,{' '}
+              <span className="font-[Crimson_Pro] italic" style={{ color: '#E8650A' }}>one platform.</span>
+            </h2>
+            <p className="mb-[50px] text-[14.5px] leading-[1.6] text-[#666]">Tap a sector to see the kinds of roles typically available.</p>
           </div>
 
-          <div className="sec-grid">
+          <div className="grid grid-cols-1 items-start gap-[18px] pb-[100px] sm:grid-cols-2 lg:grid-cols-3">
             {SECTOR_LIST.map((s, i) => {
               const isOpen = openSector === i;
               return (
                 <div
-                  className={`sec-card ${isOpen ? 'open' : ''}`}
                   key={i}
-                  style={{ '--accent': s.color }}
                   onClick={() => setOpenSector(isOpen ? null : i)}
+                  className="cursor-pointer rounded-l rounded-r-[14px] border border-black/[0.06] border-l-4 bg-white py-5 pl-[22px] pr-5 transition-shadow duration-200 hover:shadow-[0_10px_26px_rgba(0,0,0,0.06)]"
+                  style={{ borderLeftColor: s.color }}
                 >
-                  <div className="sec-card-top">
-                    <div className="sec-icon" style={{ background: `${s.color}1A`, color: s.color }}>
+                  <div className="flex items-center gap-4">
+                    <div
+                      className="flex h-[46px] w-[46px] flex-shrink-0 items-center justify-center rounded-xl"
+                      style={{ background: `${s.color}1A`, color: s.color }}
+                    >
                       {s.icon}
                     </div>
-                    <h4>{s.name}</h4>
-                    <ChevronDown size={18} className="sec-chev" />
+                    <h4 className="flex-1 text-[15px] font-extrabold leading-[1.3]">{s.name}</h4>
+                    <ChevronDown
+                      size={18}
+                      className="flex-shrink-0 text-[#ccc] transition-transform duration-200"
+                      style={isOpen ? { transform: 'rotate(180deg)', color: '#E8650A' } : undefined}
+                    />
                   </div>
-                  <div className="sec-desc">
-                    <p>{s.desc}</p>
+                  <div
+                    className="overflow-hidden transition-[max-height,margin-top] duration-300"
+                    style={isOpen ? { maxHeight: 120, marginTop: 14 } : { maxHeight: 0, marginTop: 0 }}
+                  >
+                    <p className="pl-[62px] text-[13px] leading-[1.6] text-[#666]">{s.desc}</p>
                   </div>
                 </div>
               );
@@ -322,67 +242,99 @@ export default function ServicesPage() {
           </div>
         </div>
 
-        <div className="hiw-wrap">
-          <div className="sec-head">
-            <span className="label" style={{ color: '#E8650A' }}>How It Works</span>
-            <h2>How our services <span style={{ color: '#1A7A2E', fontStyle: 'italic', fontFamily: 'Crimson Pro' }}>work.</span></h2>
-            <p>A simple step-by-step journey, whether you're looking for a job or looking to hire.</p>
+        {/* ---------- HOW IT WORKS ---------- */}
+        <div className="pb-[110px] pt-10">
+          <div className="mx-auto mb-2.5 max-w-[620px] text-center">
+            <span className="text-[11px] font-extrabold uppercase tracking-[0.18em]" style={{ color: '#E8650A' }}>How It Works</span>
+            <h2 className="my-3 text-[30px] font-black tracking-[-0.5px]">
+              How our services{' '}
+              <span className="font-[Crimson_Pro] italic" style={{ color: '#1A7A2E' }}>work.</span>
+            </h2>
+            <p className="mb-[50px] text-[14.5px] leading-[1.6] text-[#666]">A simple step-by-step journey, whether you're looking for a job or looking to hire.</p>
           </div>
 
-          <div className="hiw-block">
-            <div className="hiw-block-head">
-              <div className="hiw-block-icon" style={{ background: '#E8650A1A', color: '#E8650A' }}>
+          {/* Job Seekers timeline */}
+          <div className="mb-[70px]">
+            <div className="mb-[34px] flex items-center gap-3">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-[10px]" style={{ background: '#E8650A1A', color: '#E8650A' }}>
                 <UsersRound size={20} />
               </div>
-              <h3>For Job Seekers</h3>
-              <span>From registration to getting hired</span>
+              <h3 className="text-[19px] font-black">For Job Seekers</h3>
+              <span className="text-[13px] font-medium text-[#888]">From registration to getting hired</span>
             </div>
-            <div className="hiw-h-track" ref={seekerTrackRef}>
-              <div className="hiw-h-steps" style={{ '--accent': '#E8650A' }}>
-                <div className="hiw-h-line-bg" />
-                <div className={`hiw-h-line-fill ${seekerInView ? 'animate' : ''}`} />
-                <div className={`hiw-h-runner ${seekerInView ? 'animate' : ''}`}>
-                  <RunIcon size={18} />
+            <div className="overflow-x-auto overflow-y-hidden pb-1.5" ref={seekerTrackRef}>
+              <div className="relative flex min-w-[780px] pt-[22px]" style={{ '--accent': '#E8650A' }}>
+                <div className="absolute top-[22px] h-[3px] rounded-[3px] bg-black/[0.08]" style={{ left: 'calc(100% / 12)', right: 'calc(100% / 12)' }} />
+                <div
+                  className="absolute top-[22px] h-[3px] rounded-[3px] transition-[width] duration-[5000ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
+                  style={{ left: 'calc(100% / 12)', background: 'var(--accent)', width: seekerInView ? 'calc(100% - (100% / 6))' : 0 }}
+                />
+                <div
+                  className="absolute top-[22px] z-[3] -mt-[18px] flex h-9 w-9 items-center justify-center rounded-full border-[3px] bg-white shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-[left] duration-[5000ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
+                  style={{ borderColor: 'var(--accent)', color: 'var(--accent)', left: seekerInView ? 'calc((100% - (100% / 12)) - 18px)' : 'calc((100% / 12) - 18px)' }}
+                >
+                  <span className={seekerInView ? 'animate-[hiw-bob_0.6s_ease-in-out_infinite_alternate]' : ''}>
+                    <RunIcon size={18} />
+                  </span>
                 </div>
                 {SEEKER_STEPS.map((s, i) => (
                   <div
-                    className={`hiw-h-step ${seekerInView ? 'animate' : ''}`}
-                    style={{ transitionDelay: `${i * 0.5 + 0.3}s` }}
                     key={i}
+                    className={`relative z-[1] flex flex-1 flex-col items-center px-3 text-center transition-all duration-500 ${seekerInView ? 'translate-y-0 opacity-100' : 'translate-y-2.5 opacity-0'}`}
+                    style={{ transitionDelay: `${i * 0.5 + 0.3}s` }}
                   >
-                    <div className="hiw-h-num">{String(i + 1).padStart(2, '0')}</div>
-                    <h4>{s.title}</h4>
-                    <p>{s.desc}</p>
+                    <div
+                      className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border-4 text-[13.5px] font-extrabold text-white shadow-[0_0_0_1px_rgba(0,0,0,0.06)]"
+                      style={{ background: 'var(--accent)', borderColor: '#FBF0E1' }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </div>
+                    <h4 className="mb-1.5 mt-3.5 text-[12.5px] font-extrabold sm:text-[13.5px]">{s.title}</h4>
+                    <p className="text-[11.5px] leading-[1.55] text-[#666] sm:text-xs">{s.desc}</p>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className="hiw-block">
-            <div className="hiw-block-head">
-              <div className="hiw-block-icon" style={{ background: '#1A7A2E1A', color: '#1A7A2E' }}>
+          {/* Employers timeline */}
+          <div>
+            <div className="mb-[34px] flex items-center gap-3">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-[10px]" style={{ background: '#1A7A2E1A', color: '#1A7A2E' }}>
                 <Handshake size={20} />
               </div>
-              <h3>For Employers</h3>
-              <span>From registration to hiring the right talent</span>
+              <h3 className="text-[19px] font-black">For Employers</h3>
+              <span className="text-[13px] font-medium text-[#888]">From registration to hiring the right talent</span>
             </div>
-            <div className="hiw-h-track" ref={employerTrackRef}>
-              <div className="hiw-h-steps" style={{ '--accent': '#1A7A2E' }}>
-                <div className="hiw-h-line-bg" />
-                <div className={`hiw-h-line-fill ${employerInView ? 'animate' : ''}`} />
-                <div className={`hiw-h-runner ${employerInView ? 'animate' : ''}`}>
-                  <UserSearch size={18} />
+            <div className="overflow-x-auto overflow-y-hidden pb-1.5" ref={employerTrackRef}>
+              <div className="relative flex min-w-[780px] pt-[22px]" style={{ '--accent': '#1A7A2E' }}>
+                <div className="absolute top-[22px] h-[3px] rounded-[3px] bg-black/[0.08]" style={{ left: 'calc(100% / 12)', right: 'calc(100% / 12)' }} />
+                <div
+                  className="absolute top-[22px] h-[3px] rounded-[3px] transition-[width] duration-[5000ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
+                  style={{ left: 'calc(100% / 12)', background: 'var(--accent)', width: employerInView ? 'calc(100% - (100% / 6))' : 0 }}
+                />
+                <div
+                  className="absolute top-[22px] z-[3] -mt-[18px] flex h-9 w-9 items-center justify-center rounded-full border-[3px] bg-white shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-[left] duration-[5000ms] ease-[cubic-bezier(0.65,0,0.35,1)]"
+                  style={{ borderColor: 'var(--accent)', color: 'var(--accent)', left: employerInView ? 'calc((100% - (100% / 12)) - 18px)' : 'calc((100% / 12) - 18px)' }}
+                >
+                  <span className={employerInView ? 'animate-[hiw-bob_0.6s_ease-in-out_infinite_alternate]' : ''}>
+                    <UserSearch size={18} />
+                  </span>
                 </div>
                 {EMPLOYER_STEPS.map((s, i) => (
                   <div
-                    className={`hiw-h-step ${employerInView ? 'animate' : ''}`}
-                    style={{ transitionDelay: `${i * 0.5 + 0.3}s` }}
                     key={i}
+                    className={`relative z-[1] flex flex-1 flex-col items-center px-3 text-center transition-all duration-500 ${employerInView ? 'translate-y-0 opacity-100' : 'translate-y-2.5 opacity-0'}`}
+                    style={{ transitionDelay: `${i * 0.5 + 0.3}s` }}
                   >
-                    <div className="hiw-h-num">{String(i + 1).padStart(2, '0')}</div>
-                    <h4>{s.title}</h4>
-                    <p>{s.desc}</p>
+                    <div
+                      className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border-4 text-[13.5px] font-extrabold text-white shadow-[0_0_0_1px_rgba(0,0,0,0.06)]"
+                      style={{ background: 'var(--accent)', borderColor: '#FBF0E1' }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </div>
+                    <h4 className="mb-1.5 mt-3.5 text-[12.5px] font-extrabold sm:text-[13.5px]">{s.title}</h4>
+                    <p className="text-[11.5px] leading-[1.55] text-[#666] sm:text-xs">{s.desc}</p>
                   </div>
                 ))}
               </div>

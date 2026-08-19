@@ -106,193 +106,35 @@ export default function AboutPage() {
     EVENT_IMAGES[(start + 2) % EVENT_IMAGES.length]
   ];
 
+  const EG_CARD_POS = [
+    "left-0 rotate-[-10deg] z-[1]",
+    "left-1/2 top-[10px] -translate-x-1/2 rotate-0 z-[2]",
+    "right-0 rotate-[10deg] z-[1]",
+  ];
+
   return (
-    <div className="ap-wrap">
+    <div className="font-['Raleway',sans-serif] bg-[#FBF0E1] text-[#111] overflow-x-hidden">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;800;900&family=Crimson+Pro:ital,wght@0,300;1,400;1,600&display=swap');
 
-        .ap-wrap { font-family: 'Raleway', sans-serif; background: #FBF0E1; color: #111; overflow-x: hidden; }
-        
-        /* --- 1. Editorial Hero --- */
-        .ap-hero {
-          padding: 120px 24px 80px;
-          max-width: 1200px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: 1.2fr 0.8fr;
-          gap: 60px;
-          align-items: center;
-        }
-        .ap-hero-content { position: relative; }
-        .ap-hero-tag {
-          font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em;
-          color: #1A7A2E; margin-bottom: 20px; display: block;
-        }
-        .ap-hero-title {
-          font-size: clamp(40px, 6vw, 72px); font-weight: 900; line-height: 1; letter-spacing: -2px; margin-bottom: 30px;
-        }
-        .ap-hero-title em { font-family: 'Crimson Pro', serif; font-style: italic; color: #E8650A; font-weight: 500; }
-        
-        .ap-hero-quote {
-          font-family: 'Crimson Pro', serif; font-size: 20px; font-style: italic; color: #666;
-          border-left: 3px solid #FBF0E1; padding-left: 24px; line-height: 1.6;
-        }
+        @keyframes ap-circle-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes ap-circle-spin-reverse { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+        @keyframes eg-fade-in { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; } }
+        @keyframes pt-hub-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes pt-hub-spin-reverse { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+        @keyframes pt-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes pt-spin-reverse { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
 
-        /* --- Hero Visual: two overlapping boxes + rotated circle badge --- */
-        .ap-hero-visual {
-          position: relative;
-          height: 420px;
-        }
-        .ap-hero-box {
-          position: absolute;
-          border-radius: 28px;
-        }
-        .ap-hero-box-1 {
-          left: 0;
-          top: 10px;
-          width: 58%;
-          height: 300px;
-          background: #F4D8BE;
-        }
-        .ap-hero-box-2 {
-          right: 0;
-          top: 100px;
-          width: 54%;
-          height: 340px;
-          background: #1A7A2E;
-        }
-        .ap-hero-circle-outer {
-          position: absolute;
-          left: 50%;
-          top: 42%;
-          margin-left: -100px;
-          margin-top: -100px;
-          width: 200px;
-          height: 200px;
-          border-radius: 50%;
-          background: #FBF0E1;
-          border: 4px dashed #111;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-          z-index: 2;
-          animation: ap-circle-spin 6s linear infinite;
-        }
-        .ap-hero-circle-inner {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 6px;
-          animation: ap-circle-spin-reverse 6s linear infinite;
-        }
-        @keyframes ap-circle-spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        @keyframes ap-circle-spin-reverse {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(-360deg); }
-        }
-        .ap-hero-circle-wordmark {
-          font-weight: 900;
-          font-size: 13px;
-          line-height: 1.3;
-          text-align: center;
-          letter-spacing: 0.02em;
-        }
-        .ap-hero-circle-logo-wrap {
-          width: 66%;
-          aspect-ratio: 456 / 383;
-          overflow: hidden;
-          border-radius: 10px;
-        }
-        .ap-hero-circle-logo {
-          width: 100%;
-          height: auto;
-          object-fit: cover;
-          object-position: top center;
-          display: block;
-        }
+        .ap-hero-circle-outer { animation: ap-circle-spin 6s linear infinite; }
+        .ap-hero-circle-inner { animation: ap-circle-spin-reverse 6s linear infinite; }
+        .eg-card { animation: eg-fade-in 0.6s ease; }
+        .pt-hub { animation: pt-hub-spin 6s linear infinite; }
+        .pt-hub-content { animation: pt-hub-spin-reverse 6s linear infinite; }
+        .pt-orbit { animation: pt-spin 30s linear infinite; }
+        .pt-sat-inner { animation: pt-spin-reverse 30s linear infinite; }
 
-        /* --- 2. Leadership Section (editorial profile spread, no cards, no bg numerals) --- */
-        .fs-wrap {
-          padding: 80px 0 10px;
-        }
-        .fs-section-head {
-          max-width: 1100px;
-          margin: 0 auto 50px;
-          text-align: center;
-          padding: 0 24px;
-        }
-        .fs-section-head h2 {
-          font-size: 32px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 10px;
-        }
-        .fs-section-head p { color: #666; }
-
-        .fs-profile {
-          position: relative;
-          padding: 56px 24px;
-          background: #FFFFFF;
-        }
-
-        .fs-body {
-          position: relative;
-          z-index: 1;
-          max-width: 1000px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: 300px 1fr;
-          gap: 56px;
-          align-items: center;
-        }
-        .fs-profile-l .fs-body { grid-template-columns: 1fr 300px; }
-        .fs-profile-l .fs-photo-col { order: 2; }
-        .fs-profile-l .fs-text-col { order: 1; }
-
-        .fs-photo-col { position: relative; max-width: 300px; }
-        
-        .fs-photo {
-          position: relative;
-          z-index: 1;
-          aspect-ratio: 3/4;
-          border-radius: 16px;
-          overflow: hidden;
-          box-shadow: 0 16px 32px rgba(0,0,0,0.1);
-        }
-        .fs-photo img {
-          width: 100%; height: 100%; object-fit: cover; display: block;
-        }
-
-        .fs-tag {
-          font-size: 12.5px; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 10px; display: block;
-        }
-        .fs-name {
-          font-family: 'Raleway', sans-serif;
-          font-size: clamp(26px, 3.2vw, 38px);
-          font-weight: 900;
-          letter-spacing: -1px;
-          color: #111;
-          margin-bottom: 5px;
-          line-height: 1.1;
-        }
-        .fs-date {
-          font-size: 12.5px;
-          font-weight: 700;
-          color: var(--accent);
-          margin-bottom: 20px;
-        }
-        .fs-para {
-          font-size: 14.5px; line-height: 1.8; color: #2A2A2A; margin-bottom: 18px;
-        }
-
-        .fs-pullquote {
-          position: relative;
-          margin: 24px 0;
-          padding-left: 34px;
-        }
         .fs-pullquote::before {
-          content: '“';
+          content: '\\201C';
           position: absolute;
           left: -4px;
           top: -22px;
@@ -303,291 +145,38 @@ export default function AboutPage() {
           opacity: 0.35;
           line-height: 1;
         }
-        .fs-pullquote p {
-          font-family: 'Crimson Pro', serif;
-          font-style: italic;
-          font-size: 17px;
-          line-height: 1.6;
-          color: var(--accent);
-          font-weight: 500;
-          margin: 0;
-        }
-
         @media (max-width: 900px) {
-          .fs-body, .fs-profile-l .fs-body { grid-template-columns: 1fr; gap: 28px; }
-          .fs-profile-l .fs-photo-col, .fs-profile-l .fs-text-col { order: initial; }
-          .fs-photo-col { max-width: 220px; margin: 0 auto; }
-          .fs-pullquote { padding-left: 26px; }
           .fs-pullquote::before { font-size: 56px; top: -14px; }
         }
-
-        /* --- 3. Event Gallery Section (fanned photo stack) --- */
-        .eg-wrap {
-          background: #FBF0E1;
-          padding: 100px 24px;
-        }
-        .eg-grid {
-          max-width: 1200px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: 0.9fr 1.1fr;
-          gap: 60px;
-          align-items: center;
-        }
-        .eg-tag {
-          font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em;
-          color: #1A7A2E; margin-bottom: 20px; display: block;
-        }
-        .eg-title {
-          font-size: clamp(32px, 4vw, 48px); font-weight: 900; line-height: 1.1;
-          letter-spacing: -1px; margin-bottom: 24px; color: #111;
-        }
-        .eg-title em { font-family: 'Crimson Pro', serif; font-style: italic; color: #E8650A; font-weight: 500; }
-        .eg-text {
-          font-size: 16px; line-height: 1.8; color: #444; max-width: 420px;
-        }
-        .eg-stack {
-          position: relative;
-          width: 100%;
-          height: 520px;
-        }
-        .eg-card {
-          position: absolute;
-          top: 40px;
-          width: 300px;
-          height: 420px;
-          border-radius: 22px;
-          overflow: hidden;
-          box-shadow: 0 24px 50px rgba(0,0,0,0.25);
-          border: 6px solid #fff;
-          animation: eg-fade-in 0.6s ease;
-        }
-        .eg-card-0 { left: 0%; transform: rotate(-10deg); z-index: 1; }
-        .eg-card-1 { left: 50%; top: 10px; transform: translateX(-50%) rotate(0deg); z-index: 2; }
-        .eg-card-2 { right: 0%; transform: rotate(10deg); z-index: 1; }
-        @keyframes eg-fade-in {
-          from { opacity: 0; transform: scale(0.92); }
-          to { opacity: 1; }
-        }
-        .eg-card img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-        }
-
-        /* --- 4. The Vision Section (The "Why") --- */
-        .ap-vision { background: #fff; padding: 100px 24px; border-top: 1px solid rgba(0,0,0,0.05); }
-        .ap-vision-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-        
-        .ap-vision-text h2 { font-size: 32px; font-weight: 900; margin-bottom: 24px; letter-spacing: -0.5px; }
-        .ap-vision-text p { font-size: 16.5px; line-height: 1.8; color: #444; margin-bottom: 20px; }
-
-        .ap-stat-highlight {
-           background: #FBF0E1; padding: 40px; border-radius: 20px; display: flex; flex-direction: column; justify-content: center;
-        }
-        .ap-stat-num { font-size: 64px; font-weight: 900; color: #1A7A2E; line-height: 1; margin-bottom: 10px; }
-        .ap-stat-label { font-size: 14px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* --- 5. The Pillars (Cards with Thick Left Border) --- */
-        .ap-pillars { padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
-        .ap-pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
-        
-        .ap-pillar-card {
-          background: #fff; padding: 40px 32px; border-radius: 16px;
-          border: 1px solid rgba(0,0,0,0.05); border-left: 6px solid var(--accent);
-          box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-          transition: transform 0.3s ease;
-        }
-        .ap-pillar-card:hover { transform: translateY(-10px); }
-        .ap-pillar-icon { color: var(--accent); margin-bottom: 24px; }
-        .ap-pillar-card h3 { font-size: 20px; font-weight: 800; margin-bottom: 16px; }
-        .ap-pillar-card p { font-size: 14px; color: #666; line-height: 1.6; }
-
-        /* --- 6. The Impact Numbers --- */
-        .ap-impact { background: #111; color: #fff; padding: 80px 24px; text-align: center; }
-        .ap-impact-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
-        .ap-impact-item h4 { font-size: 32px; font-weight: 900; margin-bottom: 5px; color: #E8650A; }
-        .ap-impact-item p { font-size: 11px; font-weight: 700; opacity: 0.5; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* --- 7. Partners Section (orbiting satellite diagram) --- */
-        .pt-wrap { background: #FBF0E1; padding: 100px 24px; }
-        .pt-tag {
-          font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em;
-          color: #1A7A2E; margin-bottom: 16px; display: block; text-align: center;
-        }
-        .pt-inner h2 {
-          font-size: 32px; font-weight: 900; margin-bottom: 60px; color: #111; text-align: center;
-        }
-        .pt-orbit-wrap {
-          position: relative;
-          width: 460px;
-          height: 460px;
-          margin: 0 auto 40px;
-          --orbit-r: 200px;
-        }
-        .pt-hub {
-          position: absolute;
-          top: 50%; left: 50%;
-          width: 130px; height: 130px;
-          margin: -65px 0 0 -65px;
-          border-radius: 50%;
-          background: conic-gradient(from -90deg, #E8650A 0deg 120deg, #000080 120deg 240deg, #1A7A2E 240deg 360deg);
-          padding: 4px;
-          z-index: 3;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-          animation: pt-hub-spin 6s linear infinite;
-        }
-        @keyframes pt-hub-spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        @keyframes pt-hub-spin-reverse {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(-360deg); }
-        }
-        .pt-hub-content {
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          background: #fff;
-          display: flex;
-          flex-direction: column;
-          align-items: center; justify-content: center;
-          gap: 4px;
-          text-align: center;
-          padding: 12px;
-          animation: pt-hub-spin-reverse 6s linear infinite;
-        }
-        .pt-hub-logo-wrap {
-          width: 74%;
-          aspect-ratio: 456 / 383;
-          overflow: hidden;
-        }
-        .pt-hub img {
-          width: 100%;
-          height: auto;
-          object-fit: cover;
-          object-position: top center;
-          display: block;
-        }
-        .pt-ring {
-          position: absolute;
-          inset: 0;
-          border: 2px dashed rgba(0,0,0,0.15);
-          border-radius: 50%;
-        }
-        .pt-orbit {
-          position: absolute;
-          inset: 0;
-          animation: pt-spin 30s linear infinite;
-        }
-        .pt-sat {
-          position: absolute;
-          top: 50%; left: 50%;
-          width: 0; height: 0;
-        }
-        .pt-sat-inner {
-          position: absolute;
-          width: 92px; height: 92px;
-          margin: -46px 0 0 -46px;
-          border-radius: 50%;
-          background: #fff;
-          border: 3px solid var(--c);
-          display: flex; flex-direction: column; align-items: center; justify-content: center;
-          gap: 4px;
-          font-weight: 900;
-          font-size: 11px;
-          color: var(--c);
-          animation: pt-spin-reverse 30s linear infinite;
-          box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        .pt-sat-inner img {
-          width: 36px; height: 36px; object-fit: contain;
-        }
-        @keyframes pt-spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        @keyframes pt-spin-reverse {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(-360deg); }
-        }
-        .pt-hub-label {
-          font-size: 9px;
-          font-weight: 800;
-          letter-spacing: 0.01em;
-          line-height: 1.2;
-        }
-        .pt-caption {
-          text-align: center;
-          font-size: 15px;
-          color: #666;
-          max-width: 560px;
-          margin: 0 auto;
-        }
-        .pt-caption strong { color: #E8650A; }
-
-        /* --- 8. Closing CTA --- */
-        .ap-cta { padding: 120px 24px; text-align: center; background: #F4D8BE; }
-        .ap-cta h2 { font-size: 42px; font-weight: 900; margin-bottom: 30px; letter-spacing: -1px; }
-        .ap-cta-btn { 
-          background: #111; color: #fff; padding: 18px 48px; border-radius: 8px; 
-          font-weight: 800; text-decoration: none; display: inline-block; transition: 0.2s;
-        }
-        .ap-cta-btn:hover { background: #E8650A; transform: scale(1.05); }
-
+        .pt-ring { --orbit-r: 200px; }
         @media (max-width: 900px) {
-          .ap-hero, .ap-vision-grid, .ap-pillar-grid, .eg-grid { grid-template-columns: 1fr; gap: 40px; }
-          .ap-impact-grid { grid-template-columns: 1fr 1fr; }
-          .eg-stack { height: 340px; }
-          .eg-card { width: 150px; height: 210px; }
-
-          .pt-wrap { overflow-x: hidden; }
-          .pt-orbit-wrap {
-            width: 300px;
-            height: 300px;
-            --orbit-r: 118px;
-          }
-          .pt-hub { width: 96px; height: 96px; margin: -48px 0 0 -48px; padding: 3px; }
-          .pt-hub-content { padding: 8px; gap: 2px; }
-          .pt-hub-label { font-size: 7.5px; }
-          .pt-sat-inner { width: 66px; height: 66px; margin: -33px 0 0 -33px; font-size: 8.5px; gap: 2px; }
-          .pt-sat-inner img { width: 24px; height: 24px; }
+          .pt-ring { --orbit-r: 128px; }
         }
-
         @media (max-width: 420px) {
-          .pt-orbit-wrap {
-            width: 260px;
-            height: 260px;
-            --orbit-r: 98px;
-          }
-          .pt-hub { width: 84px; height: 84px; margin: -42px 0 0 -42px; padding: 3px; }
-          .pt-hub-content { padding: 6px; gap: 2px; }
-          .pt-hub-label { font-size: 6.5px; }
-          .pt-sat-inner { width: 56px; height: 56px; margin: -28px 0 0 -28px; font-size: 7.5px; }
-          .pt-sat-inner img { width: 20px; height: 20px; }
+          .pt-ring { --orbit-r: 108px; }
         }
       `}</style>
 
       {/* 1. Header Section */}
-      <section className="ap-hero">
-        <div className="ap-hero-content">
-          <span className="ap-hero-tag">Established 2019</span>
-          <h1 className="ap-hero-title">Beyond the Resume. <em>Building Bharat.</em></h1>
-          <p className="ap-hero-quote">
+      <section className="px-6 pt-[120px] pb-20 max-w-[1200px] mx-auto grid grid-cols-[1.2fr_0.8fr] gap-[60px] items-center max-[900px]:grid-cols-1 max-[900px]:gap-10">
+        <div className="relative">
+          <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#1A7A2E] mb-5 block">Established 2019</span>
+          <h1 className="text-[clamp(40px,6vw,72px)] font-black leading-none tracking-[-2px] mb-[30px]">
+            Beyond the Resume. <em className="font-['Crimson_Pro',serif] not-italic italic text-[#E8650A] font-medium">Building Bharat.</em>
+          </h1>
+          <p className="font-['Crimson_Pro',serif] text-xl italic text-[#666] border-l-[3px] border-[#FBF0E1] pl-6 leading-[1.6]">
             "Skill was never the problem in India. Access was. We decided to fix the distance between a village classroom and a corporate boardroom."
           </p>
         </div>
-        <div className="ap-hero-visual">
-          <div className="ap-hero-box ap-hero-box-1"></div>
-          <div className="ap-hero-box ap-hero-box-2"></div>
-          <div className="ap-hero-circle-outer">
-            <div className="ap-hero-circle-inner">
-              <div className="ap-hero-circle-logo-wrap">
-                <img src="/images/logo.png" alt="Skill Yuva Bharat" className="ap-hero-circle-logo" />
+        <div className="relative h-[420px]">
+          <div className="absolute left-0 top-[10px] w-[58%] h-[300px] rounded-[28px]" style={{ background: "#F4D8BE" }} />
+          <div className="absolute right-0 top-[100px] w-[54%] h-[340px] rounded-[28px]" style={{ background: "#1A7A2E" }} />
+          <div className="ap-hero-circle-outer absolute left-1/2 top-[42%] -ml-[100px] -mt-[100px] w-[200px] h-[200px] rounded-full bg-[#FBF0E1] border-4 border-dashed border-[#111] shadow-[0_10px_30px_rgba(0,0,0,0.18)] z-[2]">
+            <div className="ap-hero-circle-inner absolute inset-0 flex flex-col items-center justify-center gap-1.5">
+              <div className="w-[66%] aspect-[456/383] overflow-hidden rounded-[10px]">
+                <img src="/images/logo.png" alt="Skill Yuva Bharat" className="w-full h-auto object-cover object-top block" />
               </div>
-              <span className="ap-hero-circle-wordmark">
+              <span className="font-black text-[13px] leading-[1.3] text-center tracking-[0.02em]">
                 <span style={{ color: "#E8650A" }}>SKILL</span> <span style={{ color: "#000080" }}>YUVA</span> <span style={{ color: "#1A7A2E" }}>BHARAT</span>
               </span>
             </div>
@@ -596,33 +185,39 @@ export default function AboutPage() {
       </section>
 
       {/* 2. Leadership Section (Founder + Co-Founder) */}
-      <section className="fs-wrap">
-        <div className="fs-section-head">
-          <h2>Our Leadership</h2>
-          <p>The people behind Skill Yuva Bharat's mission.</p>
+      <section className="pt-20 pb-[10px]">
+        <div className="max-w-[1100px] mx-auto mb-[50px] text-center px-6">
+          <h2 className="text-[32px] font-black tracking-[-0.5px] mb-2.5">Our Leadership</h2>
+          <p className="text-[#666]">The people behind Skill Yuva Bharat's mission.</p>
         </div>
 
         {LEADERS.map((leader, i) => (
           <div
             key={leader.name}
-            className={`fs-profile ${i % 2 === 0 ? 'fs-profile-r' : 'fs-profile-l'}`}
+            className="relative py-14 px-6 bg-white"
             style={{ '--accent': leader.accent }}
           >
-            <div className="fs-body">
-              <div className="fs-photo-col">
-                <div className="fs-photo">
-                  <img src={leader.photo} alt={leader.name} />
+            <div
+              className={`fs-body relative z-[1] max-w-[1000px] mx-auto grid gap-14 items-center max-[900px]:grid-cols-1 max-[900px]:gap-7 ${
+                i % 2 === 0
+                  ? "grid-cols-[300px_1fr]"
+                  : "grid-cols-[1fr_300px]"
+              }`}
+            >
+              <div className={`relative max-w-[300px] max-[900px]:max-w-[220px] max-[900px]:mx-auto ${i % 2 === 0 ? "" : "order-2 max-[900px]:order-none"}`}>
+                <div className="relative z-[1] aspect-[3/4] rounded-2xl overflow-hidden shadow-[0_16px_32px_rgba(0,0,0,0.1)]">
+                  <img src={leader.photo} alt={leader.name} className="w-full h-full object-cover block" />
                 </div>
               </div>
-              <div className="fs-text-col">
-                <span className="fs-tag">{leader.tag}</span>
-                <h2 className="fs-name">{leader.name}</h2>
-                <p className="fs-date">{leader.subtitle}</p>
-                <p className="fs-para">{leader.paraIntro}</p>
-                <div className="fs-pullquote">
-                  <p>{leader.quoteText}</p>
+              <div className={i % 2 === 0 ? "" : "order-1 max-[900px]:order-none"}>
+                <span className="text-[12.5px] font-extrabold uppercase tracking-[0.14em] mb-2.5 block" style={{ color: "var(--accent)" }}>{leader.tag}</span>
+                <h2 className="font-['Raleway',sans-serif] text-[clamp(26px,3.2vw,38px)] font-black tracking-[-1px] text-[#111] mb-[5px] leading-[1.1]">{leader.name}</h2>
+                <p className="text-[12.5px] font-bold mb-5" style={{ color: "var(--accent)" }}>{leader.subtitle}</p>
+                <p className="text-[14.5px] leading-[1.8] text-[#2A2A2A] mb-[18px]">{leader.paraIntro}</p>
+                <div className="fs-pullquote relative my-6 pl-[34px]">
+                  <p className="font-['Crimson_Pro',serif] italic text-[17px] leading-[1.6] font-medium m-0" style={{ color: "var(--accent)" }}>{leader.quoteText}</p>
                 </div>
-                <p className="fs-para">{leader.paraClose}</p>
+                <p className="text-[14.5px] leading-[1.8] text-[#2A2A2A] mb-[18px]">{leader.paraClose}</p>
               </div>
             </div>
           </div>
@@ -630,20 +225,25 @@ export default function AboutPage() {
       </section>
 
       {/* 3. Event Gallery Section */}
-      <section className="eg-wrap">
-        <div className="eg-grid">
+      <section className="bg-[#FBF0E1] px-6 py-[100px]">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-[0.9fr_1.1fr] gap-[60px] items-center max-[900px]:grid-cols-1 max-[900px]:gap-10">
           <div>
-            <span className="eg-tag">Moments that matter</span>
-            <h2 className="eg-title">Every fair tells <em>a story</em>.</h2>
-            <p className="eg-text">
+            <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#1A7A2E] mb-5 block">Moments that matter</span>
+            <h2 className="text-[clamp(32px,4vw,48px)] font-black leading-[1.1] tracking-[-1px] mb-6 text-[#111]">
+              Every fair tells <em className="font-['Crimson_Pro',serif] not-italic italic text-[#E8650A] font-medium">a story</em>.
+            </h2>
+            <p className="text-base leading-[1.8] text-[#444] max-w-[420px]">
               From packed convention halls to the first handshake between a candidate and a recruiter, these are the moments that define Skill Yuva Bharat's fairs across the country.
             </p>
           </div>
 
-          <div className="eg-stack">
+          <div className="relative w-full h-[520px] max-[900px]:h-[340px]">
             {visible.map((img, i) => (
-              <div key={img} className={`eg-card eg-card-${i}`}>
-                <img src={img} alt="" />
+              <div
+                key={img}
+                className={`eg-card absolute top-10 w-[300px] h-[420px] max-[900px]:w-[150px] max-[900px]:h-[210px] rounded-[22px] overflow-hidden shadow-[0_24px_50px_rgba(0,0,0,0.25)] border-[6px] border-white ${EG_CARD_POS[i]}`}
+              >
+                <img src={img} alt="" className="w-full h-full object-cover block" />
               </div>
             ))}
           </div>
@@ -651,19 +251,19 @@ export default function AboutPage() {
       </section>
 
       {/* 4. The Vision Section */}
-      <section className="ap-vision">
-        <div className="ap-vision-grid">
-          <div className="ap-stat-highlight">
-            <span className="ap-stat-num">1.2M+</span>
-            <span className="ap-stat-label">Lives Touched Nationwide</span>
-            <p style={{ marginTop: '20px', color: '#666' }}>We measure success not in registrations, but in the number of first-generation earners we help create.</p>
+      <section className="bg-white px-6 py-[100px] border-t border-black/5">
+        <div className="max-w-[1100px] mx-auto grid grid-cols-2 gap-20 max-[900px]:grid-cols-1 max-[900px]:gap-10">
+          <div className="bg-[#FBF0E1] p-10 rounded-[20px] flex flex-col justify-center">
+            <span className="text-[64px] font-black text-[#1A7A2E] leading-none mb-2.5">50K+</span>
+            <span className="text-sm font-bold text-[#999] uppercase tracking-[1px]">Lives Touched Nationwide</span>
+            <p className="mt-5 text-[#666]">We measure success not in registrations, but in the number of first-generation earners we help create.</p>
           </div>
-          <div className="ap-vision-text">
-            <h2>The "Skill Yuva" Philosophy</h2>
-            <p>
+          <div>
+            <h2 className="text-[32px] font-black mb-6 tracking-[-0.5px]">The "Skill Yuva" Philosophy</h2>
+            <p className="text-[16.5px] leading-[1.8] text-[#444] mb-5">
               In the heart of every district in India lies a powerhouse of potential. Yet, for decades, this talent remained hidden behind digital barriers and expensive recruitment agencies.
             </p>
-            <p>
+            <p className="text-[16.5px] leading-[1.8] text-[#444] mb-5">
               <strong>Skill Yuva Bharat</strong> was founded to dismantle these walls. By creating a physical, high-energy environment where recruiters meet candidates face-to-face, we remove the bias of the algorithm and the cost of the agent.
             </p>
           </div>
@@ -671,52 +271,63 @@ export default function AboutPage() {
       </section>
 
       {/* 5. The Pillars Section */}
-      <section className="ap-pillars">
-        <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '32px', fontWeight: 900 }}>What we stand for</h2>
-          <p style={{ color: '#666' }}>Our work is guided by three non-negotiable principles that ensure every job fair is a win for Bharat.</p>
+      <section className="px-6 py-[100px] max-w-[1100px] mx-auto">
+        <div className="text-center max-w-[600px] mx-auto">
+          <h2 className="text-[32px] font-black">What we stand for</h2>
+          <p className="text-[#666]">Our work is guided by three non-negotiable principles that ensure every job fair is a win for Bharat.</p>
         </div>
-        <div className="ap-pillar-grid">
+        <div className="grid grid-cols-3 gap-[30px] mt-[50px] max-[900px]:grid-cols-1">
           {PILLARS.map((p, i) => (
-            <div key={i} className="ap-pillar-card" style={{ '--accent': p.color }}>
-              <div className="ap-pillar-icon">{p.icon}</div>
-              <h3>{p.title}</h3>
-              <p>{p.text}</p>
+            <div
+              key={i}
+              className="bg-white px-8 py-10 rounded-2xl border border-black/5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] transition-transform duration-300 hover:-translate-y-2.5"
+              style={{ borderLeft: `6px solid ${p.color}` }}
+            >
+              <div className="mb-6" style={{ color: p.color }}>{p.icon}</div>
+              <h3 className="text-xl font-extrabold mb-4">{p.title}</h3>
+              <p className="text-sm text-[#666] leading-[1.6]">{p.text}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* 6. Impact Numbers Section */}
-      <section className="ap-impact">
-        <div className="ap-impact-grid">
-          <div className="ap-impact-item"><h4>28+</h4><p>States Covered</p></div>
-          <div className="ap-impact-item"><h4>800+</h4><p>Partner Companies</p></div>
-          <div className="ap-impact-item"><h4>100K+</h4><p>Placements Made</p></div>
-          <div className="ap-impact-item"><h4>0</h4><p>Cost to Candidates</p></div>
+      <section className="bg-[#FBF0E1] px-20 py-20 text-center border-t border-black/5">
+        <div className="max-w-[1000px] mx-auto grid grid-cols-4 gap-10 max-[900px]:grid-cols-2">
+          <div><h4 className="text-[32px] font-black mb-[5px] text-[#E8650A]" style={{ textShadow: "0 0 8px rgba(232,101,10,0.55), 0 0 20px rgba(232,101,10,0.35), 0 0 36px rgba(232,101,10,0.2)" }}>7</h4><p className="text-[11px] font-bold text-[#666] uppercase tracking-[1px]">States Covered</p></div>
+          <div><h4 className="text-[32px] font-black mb-[5px] text-[#E8650A]" style={{ textShadow: "0 0 8px rgba(232,101,10,0.55), 0 0 20px rgba(232,101,10,0.35), 0 0 36px rgba(232,101,10,0.2)" }}>500+</h4><p className="text-[11px] font-bold text-[#666] uppercase tracking-[1px]">Partner Companies</p></div>
+          <div><h4 className="text-[32px] font-black mb-[5px] text-[#E8650A]" style={{ textShadow: "0 0 8px rgba(232,101,10,0.55), 0 0 20px rgba(232,101,10,0.35), 0 0 36px rgba(232,101,10,0.2)" }}>25K+</h4><p className="text-[11px] font-bold text-[#666] uppercase tracking-[1px]">Placements Made</p></div>
+          <div><h4 className="text-[32px] font-black mb-[5px] text-[#E8650A]" style={{ textShadow: "0 0 8px rgba(232,101,10,0.55), 0 0 20px rgba(232,101,10,0.35), 0 0 36px rgba(232,101,10,0.2)" }}>0</h4><p className="text-[11px] font-bold text-[#666] uppercase tracking-[1px]">Cost to Candidates</p></div>
         </div>
       </section>
 
       {/* 7. Partners Section */}
-      <section className="pt-wrap">
-        <div className="pt-inner">
-          <span className="pt-tag">Backed by</span>
-          <h2>Trusted by the institutions building Bharat</h2>
+      <section className="bg-[#FBF0E1] px-6 py-[100px] max-[900px]:overflow-x-hidden">
+        <div>
+          <span className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#1A7A2E] mb-4 block text-center">Backed by</span>
+          <h2 className="text-[32px] max-[420px]:text-[26px] font-black mb-[60px] max-[420px]:mb-10 text-[#111] text-center px-2">Trusted by the institutions building Bharat</h2>
         </div>
 
-        <div className="pt-orbit-wrap">
-          <div className="pt-ring"></div>
-          <div className="pt-hub">
-            <div className="pt-hub-content">
-              <div className="pt-hub-logo-wrap">
-                <img src="/images/logo.png" alt="Skill Yuva Bharat" />
+        <div
+          className="pt-ring relative w-[460px] h-[460px] mx-auto mb-10 max-[900px]:w-[300px] max-[900px]:h-[300px] max-[420px]:w-[260px] max-[420px]:h-[260px]"
+        >
+          <div className="absolute inset-0 border-2 border-dashed border-black/[0.15] rounded-full" />
+          <div
+            className="pt-hub absolute top-1/2 left-1/2 w-[130px] h-[130px] -ml-[65px] -mt-[65px] rounded-full p-1 z-[3] shadow-[0_10px_30px_rgba(0,0,0,0.2)]
+                       max-[900px]:w-24 max-[900px]:h-24 max-[900px]:-ml-12 max-[900px]:-mt-12 max-[900px]:p-[3px]
+                       max-[420px]:w-[84px] max-[420px]:h-[84px] max-[420px]:-ml-[42px] max-[420px]:-mt-[42px]"
+            style={{ background: "conic-gradient(from -90deg, #E8650A 0deg 120deg, #000080 120deg 240deg, #1A7A2E 240deg 360deg)" }}
+          >
+            <div className="pt-hub-content w-full h-full rounded-full bg-white flex flex-col items-center justify-center gap-1 text-center p-3 max-[900px]:p-2 max-[900px]:gap-0.5 max-[420px]:p-1.5">
+              <div className="w-[74%] aspect-[456/383] overflow-hidden">
+                <img src="/images/logo.png" alt="Skill Yuva Bharat" className="w-full h-auto object-cover object-top block" />
               </div>
-              <span className="pt-hub-label">
+              <span className="text-[9px] font-extrabold tracking-[0.01em] leading-[1.2] max-[900px]:text-[7.5px] max-[420px]:text-[6.5px]">
                 <span style={{ color: "#E8650A" }}>Skill</span> <span style={{ color: "#000080" }}>Yuva</span> <span style={{ color: "#1A7A2E" }}>Bharat</span>
               </span>
             </div>
           </div>
-          <div className="pt-orbit">
+          <div className="pt-orbit absolute inset-0">
             {[
               { short: 'NSDC', angle: 0, color: '#E8650A', logo: '/images/nsdc.png' },
               { short: 'CII', angle: 72, color: '#1A7A2E', logo: '/images/cii.jpg' },
@@ -724,9 +335,18 @@ export default function AboutPage() {
               { short: 'TNSkill', angle: 216, color: '#E8650A', logo: '/images/tnskill.jpg' },
               { short: 'NCS', angle: 288, color: '#1A7A2E', logo: '/images/ncs.jpg' }
             ].map((s) => (
-              <div key={s.short} className="pt-sat" style={{ transform: `rotate(${s.angle}deg) translate(var(--orbit-r, 200px)) rotate(-${s.angle}deg)` }}>
-                <div className="pt-sat-inner" style={{ '--c': s.color }}>
-                  <img src={s.logo} alt={s.short} />
+              <div
+                key={s.short}
+                className="absolute top-1/2 left-1/2 w-0 h-0"
+                style={{ transform: `rotate(${s.angle}deg) translate(var(--orbit-r, 200px)) rotate(-${s.angle}deg)` }}
+              >
+                <div
+                  className="pt-sat-inner absolute w-[92px] h-[92px] -ml-[46px] -mt-[46px] rounded-full bg-white flex flex-col items-center justify-center gap-1 font-black text-[11px] shadow-[0_8px_20px_rgba(0,0,0,0.1)]
+                             max-[900px]:w-[66px] max-[900px]:h-[66px] max-[900px]:-ml-[33px] max-[900px]:-mt-[33px] max-[900px]:text-[8.5px] max-[900px]:gap-0.5
+                             max-[420px]:w-14 max-[420px]:h-14 max-[420px]:-ml-7 max-[420px]:-mt-7 max-[420px]:text-[7.5px]"
+                  style={{ border: `3px solid ${s.color}`, color: s.color }}
+                >
+                  <img src={s.logo} alt={s.short} className="w-9 h-9 object-contain max-[900px]:w-6 max-[900px]:h-6 max-[420px]:w-5 max-[420px]:h-5" />
                   <span>{s.short}</span>
                 </div>
               </div>
@@ -734,17 +354,24 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <p className="pt-caption">
-          We work with <strong>NSDC</strong>, <strong>CII</strong>, <strong>ASDC</strong>, <strong>TNSKILL</strong> inclusion programs, and <strong>NCS</strong> to keep every fair credible, accessible, and connected to real employers.
+        <p className="text-center text-[15px] text-[#666] max-w-[560px] mx-auto">
+          We work with <strong className="text-[#E8650A]">NSDC</strong>, <strong className="text-[#E8650A]">CII</strong>, <strong className="text-[#E8650A]">ASDC</strong>, <strong className="text-[#E8650A]">TNSKILL</strong> inclusion programs, and <strong className="text-[#E8650A]">NCS</strong> to keep every fair credible, accessible, and connected to real employers.
         </p>
       </section>
 
       {/* 8. Call to Action */}
-      <section className="ap-cta">
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2>Be part of the next <br/><em>hiring revolution</em>.</h2>
-          <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-            <a href="/jobfair" className="ap-cta-btn" style={{ background: 'transparent', border: '2px solid #111', color: '#111' }}>Find a Job Fair</a>
+      <section className="px-6 py-[120px] text-center bg-[#F4D8BE]">
+        <div className="max-w-[800px] mx-auto">
+          <h2 className="text-[42px] font-black mb-[30px] tracking-[-1px]">
+            Be part of the next <br /><em className="not-italic italic">hiring revolution</em>.
+          </h2>
+          <div className="flex gap-5 justify-center">
+            <a
+              href="/jobfair"
+              className="inline-block px-12 py-[18px] rounded-lg font-extrabold no-underline transition-all duration-200 bg-transparent border-2 border-[#111] text-[#111] hover:bg-[#E8650A] hover:border-[#E8650A] hover:text-white hover:scale-105"
+            >
+              Find a Job Fair
+            </a>
           </div>
         </div>
       </section>

@@ -61,7 +61,7 @@ const QUICK_CONTACTS = [
     title: "WhatsApp Us",
     detail: "+91 98765 43210",
     sub: "Fastest way to reach us",
-    accent: "#111",
+    accent: "#111111",
   },
   {
     icon: <Building2 size={22} />,
@@ -94,145 +94,80 @@ export default function ContactPage() {
   };
 
   return (
-    <div style={{ background: '#FBF0E1', minHeight: '100vh', fontFamily: "'Raleway', sans-serif", color: '#111' }}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=Crimson+Pro:ital,wght@0,300;1,400;1,600&display=swap');
-
-        .cp-container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-
-        .cp-hero { background: #F4D8BE; padding: 120px 0 80px; text-align: center; position: relative; overflow: hidden; }
-        .cp-hero-curve { position: absolute; bottom: -1px; left: 0; width: 100%; height: 90px; display: block; }
-        .cp-eyebrow { font-size: 11px; font-weight: 800; color: #1A7A2E; letter-spacing: 2px; text-transform: uppercase; }
-        .cp-hero h1 { font-size: 44px; font-weight: 900; margin: 15px 0; letter-spacing: -1px; }
-        .cp-hero h1 em { color: #E8650A; font-style: italic; font-family: 'Crimson Pro', serif; font-weight: 600; }
-        .cp-hero p { max-width: 560px; margin: 0 auto; color: #666; font-size: 15.5px; line-height: 1.7; }
-
-        .cp-quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding: 60px 0 20px; }
-        .cp-quick-card {
-          background: #fff; border-radius: 12px; padding: 26px 22px; border: 1px solid rgba(0,0,0,0.06);
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        .cp-quick-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
-        .cp-quick-icon {
-          width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
-          margin-bottom: 14px; background: rgba(0,0,0,0.04);
-        }
-        .cp-quick-card h4 { font-size: 15px; font-weight: 800; margin: 0 0 4px; }
-        .cp-quick-card .detail { font-size: 14px; font-weight: 700; margin: 0 0 2px; }
-        .cp-quick-card .sub { font-size: 12.5px; color: #888; margin: 0; }
-
-        .cp-main-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; padding: 60px 0; align-items: start; }
-
-        .cp-section-label { font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: rgba(0,0,0,.4); margin-bottom: 10px; }
-        .cp-section-title { font-size: 24px; font-weight: 900; margin: 0 0 20px; letter-spacing: -0.5px; }
-
-        .cp-office-card {
-          background: #fff; border-radius: 12px; padding: 20px 22px; border: 1px solid rgba(0,0,0,0.06);
-          border-left: 4px solid #1A7A2E; margin-bottom: 16px;
-        }
-        .cp-office-card:nth-child(2) { border-left-color: #111; }
-        .cp-office-tag { font-size: 10.5px; font-weight: 800; text-transform: uppercase; color: #1A7A2E; letter-spacing: .05em; }
-        .cp-office-card h4 { font-size: 16px; font-weight: 800; margin: 6px 0 6px; }
-        .cp-office-card p { font-size: 13.5px; color: #666; line-height: 1.6; margin: 0; }
-
-        .cp-form-box { background: #fff; border-radius: 16px; padding: 34px; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
-        .cp-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-        .cp-input-group { margin-bottom: 16px; }
-        .cp-input-group label { display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #999; margin-bottom: 8px; }
-        .cp-field { width: 100%; background: #F9F9F9; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 12px 14px; font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.2s; }
-        .cp-field:focus { border-color: #E8650A; background: #fff; }
-        .cp-btn { width: 100%; background: #111; color: #fff; border: none; padding: 15px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s; }
-        .cp-btn:hover { background: #E8650A; }
-
-        .cp-map-full { padding: 0 0 60px; margin-top: -20px; }
-        .cp-map-wrap { border-radius: 12px; overflow: hidden; border: 1px solid rgba(0,0,0,0.06); margin-bottom: 16px; }
-        .cp-map-wrap iframe { display: block; width: 100%; height: 220px; border: 0; }
-        .cp-map-full .cp-map-wrap iframe { height: 380px; }
-
-        .cp-social-card { background: #fff; border-radius: 12px; padding: 22px; border: 1px solid rgba(0,0,0,0.06); border-left: 4px solid #111; }
-        .cp-social-card h4 { font-size: 14.5px; font-weight: 800; margin: 0 0 4px; }
-        .cp-social-card p { font-size: 13px; color: #888; margin: 0 0 16px; }
-        .cp-social-row { display: flex; gap: 10px; }
-        .cp-social-icon {
-          width: 40px; height: 40px; border-radius: 8px; background: #F9F9F9; border: 1px solid rgba(0,0,0,0.06);
-          display: flex; align-items: center; justify-content: center; color: #111; text-decoration: none;
-          transition: background 0.2s, color 0.2s, transform 0.2s;
-        }
-        .cp-social-icon:hover { background: #E8650A; color: #fff; transform: translateY(-3px); }
-
-        .cp-faq-wrap { padding: 20px 0 90px; max-width: 760px; margin: 0 auto; }
-        .cp-faq-head { text-align: center; margin-bottom: 36px; }
-        .cp-faq-item { background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
-        .cp-faq-q { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 22px; cursor: pointer; font-weight: 700; font-size: 14.5px; }
-        .cp-faq-q svg { flex-shrink: 0; transition: transform 0.25s; color: #E8650A; }
-        .cp-faq-a { padding: 0 22px; max-height: 0; overflow: hidden; transition: all 0.3s ease; color: #666; font-size: 13.5px; line-height: 1.7; }
-        .cp-faq-item.open .cp-faq-a { padding: 0 22px 20px; max-height: 200px; }
-        .cp-faq-item.open .cp-faq-q svg { transform: rotate(180deg); }
-
-        @media (max-width: 900px) {
-          .cp-quick-grid { grid-template-columns: 1fr 1fr; }
-          .cp-main-grid { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 600px) {
-          .cp-quick-grid { grid-template-columns: 1fr; }
-          .cp-form-row { grid-template-columns: 1fr; }
-          .cp-hero h1 { font-size: 32px; }
-          .cp-hero { padding: 90px 0 60px; }
-        }
-      `}</style>
+    <div className="min-h-screen bg-[#FBF0E1] text-[#111111]" style={{ fontFamily: "'Raleway', sans-serif" }}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&family=Crimson+Pro:ital,wght@0,300;1,400;1,600&display=swap');`}</style>
 
       {/* HERO */}
-      <section className="cp-hero">
-        <div className="cp-container">
-          <span className="cp-eyebrow">Get in Touch</span>
-          <h1>We're here to help <em>every step of the way</em></h1>
-          <p>Whether you're a job seeker, an employer, or just have a question about our fairs — reach out. Our team responds fast, and every channel is free to use.</p>
+      <section className="relative overflow-hidden bg-[#F4D8BE] pt-[120px] pb-20 text-center max-[600px]:pt-[90px] max-[600px]:pb-[60px]">
+        <div className="mx-auto max-w-[1100px] px-6">
+          <span className="text-[11px] font-extrabold uppercase tracking-[2px] text-[#1A7A2E]">Get in Touch</span>
+          <h1 className="my-[15px] text-[44px] font-black tracking-[-1px] max-[600px]:text-[32px]">
+            We're here to help{' '}
+            <em className="font-['Crimson_Pro',serif] font-semibold italic text-[#E8650A]">every step of the way</em>
+          </h1>
+          <p className="mx-auto max-w-[560px] text-[15.5px] leading-[1.7] text-[#666666]">
+            Whether you're a job seeker, an employer, or just have a question about our fairs — reach out. Our team responds fast, and every channel is free to use.
+          </p>
         </div>
-        <svg className="cp-hero-curve" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+        <svg className="absolute -bottom-px left-0 block h-[90px] w-full" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
           <path d="M0,0 C300,90 900,90 1200,0 L1200,90 L0,90 Z" fill="#FBF0E1" />
         </svg>
       </section>
 
-      {/* QUICK CONTACT CARDS */}
-      <div className="cp-container">
-        <div className="cp-quick-grid">
+      <div className="mx-auto max-w-[1100px] px-6">
+        {/* QUICK CONTACT CARDS */}
+        <div className="grid grid-cols-4 gap-5 pt-[60px] pb-5 max-[900px]:grid-cols-2 max-[600px]:grid-cols-1">
           {QUICK_CONTACTS.map((c, i) => (
-            <div className="cp-quick-card" key={i}>
-              <div className="cp-quick-icon" style={{ color: c.accent }}>{c.icon}</div>
-              <h4>{c.title}</h4>
-              <p className="detail" style={{ color: c.accent }}>{c.detail}</p>
-              {c.detail2 && <p className="detail" style={{ color: c.accent, marginTop: -2 }}>{c.detail2}</p>}
-              <p className="sub">{c.sub}</p>
+            <div
+              key={i}
+              className="rounded-xl border border-black/[0.06] bg-white p-[26px_22px] transition-transform duration-[250ms] ease-in-out hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+            >
+              <div className="mb-3.5 flex h-11 w-11 items-center justify-center rounded-[10px] bg-black/[0.04]" style={{ color: c.accent }}>
+                {c.icon}
+              </div>
+              <h4 className="mb-1 text-[15px] font-extrabold">{c.title}</h4>
+              <p className="mb-0.5 text-sm font-bold" style={{ color: c.accent }}>{c.detail}</p>
+              {c.detail2 && <p className="-mt-0.5 mb-0.5 text-sm font-bold" style={{ color: c.accent }}>{c.detail2}</p>}
+              <p className="text-[12.5px] text-[#888888]">{c.sub}</p>
             </div>
           ))}
         </div>
 
         {/* OFFICES + FORM */}
-        <div className="cp-main-grid">
+        <div className="grid grid-cols-[1fr_1.2fr] items-start gap-12 py-[60px] max-[900px]:grid-cols-1">
           <div>
-            <div className="cp-section-label">Our Offices</div>
-            <h2 className="cp-section-title">Find us <em style={{ fontFamily: "'Crimson Pro', serif", fontStyle: 'italic', color: '#E8650A', fontWeight: 600 }}>near you</em></h2>
+            <div className="mb-2.5 text-[11px] font-extrabold uppercase tracking-[.18em] text-black/40">Our Offices</div>
+            <h2 className="mb-5 text-2xl font-black tracking-[-0.5px]">
+              Find us <em className="font-['Crimson_Pro',serif] font-semibold not-italic italic text-[#E8650A]">near you</em>
+            </h2>
 
-            <div className="cp-office-card">
-              <span className="cp-office-tag" style={{ color: '#111' }}>Working Hours</span>
-              <h4>Monday – Saturday</h4>
-              <p>09:00 AM – 06:00 PM IST (Closed on national holidays)</p>
+            <div className="mb-4 rounded-xl border border-black/[0.06] border-l-4 border-l-[#1A7A2E] bg-white p-5 px-[22px]">
+              <span className="text-[10.5px] font-extrabold uppercase tracking-[.05em] text-[#111111]">Working Hours</span>
+              <h4 className="mb-1.5 mt-1.5 text-base font-extrabold">Monday – Saturday</h4>
+              <p className="text-[13.5px] leading-[1.6] text-[#666666]">09:00 AM – 06:00 PM IST (Closed on national holidays)</p>
             </div>
 
             {OFFICES.map((o, i) => (
-              <div className="cp-office-card" key={i}>
-                <span className="cp-office-tag">{o.tag}</span>
-                <h4>{o.city}</h4>
-                <p>{o.address}</p>
+              <div key={i} className="mb-4 rounded-xl border border-black/[0.06] border-l-4 border-l-[#111111] bg-white p-5 px-[22px]">
+                <span className="text-[10.5px] font-extrabold uppercase tracking-[.05em] text-[#1A7A2E]">{o.tag}</span>
+                <h4 className="mb-1.5 mt-1.5 text-base font-extrabold">{o.city}</h4>
+                <p className="text-[13.5px] leading-[1.6] text-[#666666]">{o.address}</p>
               </div>
             ))}
 
-            <div className="cp-social-card">
-              <h4>Follow us</h4>
-              <p>Job fair updates, hiring tips & success stories</p>
-              <div className="cp-social-row">
+            <div className="rounded-xl border border-black/[0.06] border-l-4 border-l-[#111111] bg-white p-[22px]">
+              <h4 className="mb-1 text-[14.5px] font-extrabold">Follow us</h4>
+              <p className="mb-4 text-[13px] text-[#888888]">Job fair updates, hiring tips & success stories</p>
+              <div className="flex gap-2.5">
                 {SOCIAL_LINKS.map((s, i) => (
-                  <a key={i} className="cp-social-icon" href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
+                  <a
+                    key={i}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-black/[0.06] bg-[#F9F9F9] text-[#111111] no-underline transition-all duration-200 ease-in-out hover:-translate-y-[3px] hover:bg-[#E8650A] hover:text-white"
+                  >
                     {s.icon}
                   </a>
                 ))}
@@ -241,28 +176,51 @@ export default function ContactPage() {
           </div>
 
           <div>
-            <div className="cp-section-label">Send a Message</div>
-            <h2 className="cp-section-title">Let's start a <em style={{ fontFamily: "'Crimson Pro', serif", fontStyle: 'italic', color: '#E8650A', fontWeight: 600 }}>conversation</em></h2>
-            <form className="cp-form-box" onSubmit={handleSubmit}>
-              <div className="cp-form-row">
-                <div className="cp-input-group">
-                  <label>Full Name</label>
-                  <input type="text" className="cp-field" placeholder="Enter your name" onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
+            <div className="mb-2.5 text-[11px] font-extrabold uppercase tracking-[.18em] text-black/40">Send a Message</div>
+            <h2 className="mb-5 text-2xl font-black tracking-[-0.5px]">
+              Let's start a <em className="font-['Crimson_Pro',serif] font-semibold italic text-[#E8650A]">conversation</em>
+            </h2>
+            <form
+              onSubmit={handleSubmit}
+              className="rounded-2xl border border-black/[0.06] bg-white p-[34px] shadow-[0_10px_30px_rgba(0,0,0,0.03)]"
+            >
+              <div className="mb-4 grid grid-cols-2 gap-4 max-[600px]:grid-cols-1">
+                <div>
+                  <label className="mb-2 block text-[11px] font-extrabold uppercase tracking-[0.05em] text-[#999999]">Full Name</label>
+                  <input
+                    type="text"
+                    placeholder="Enter your name"
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full rounded-lg border border-black/[0.08] bg-[#F9F9F9] px-3.5 py-3 font-sans text-sm outline-none transition-colors duration-200 focus:border-[#E8650A] focus:bg-white"
+                  />
                 </div>
-                <div className="cp-input-group">
-                  <label>Phone Number</label>
-                  <input type="tel" className="cp-field" placeholder="Enter your phone" onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
+                <div>
+                  <label className="mb-2 block text-[11px] font-extrabold uppercase tracking-[0.05em] text-[#999999]">Phone Number</label>
+                  <input
+                    type="tel"
+                    placeholder="Enter your phone"
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full rounded-lg border border-black/[0.08] bg-[#F9F9F9] px-3.5 py-3 font-sans text-sm outline-none transition-colors duration-200 focus:border-[#E8650A] focus:bg-white"
+                  />
                 </div>
               </div>
 
-              <div className="cp-input-group">
-                <label>Email Address</label>
-                <input type="email" className="cp-field" placeholder="Enter your email" onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
+              <div className="mb-4">
+                <label className="mb-2 block text-[11px] font-extrabold uppercase tracking-[0.05em] text-[#999999]">Email Address</label>
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full rounded-lg border border-black/[0.08] bg-[#F9F9F9] px-3.5 py-3 font-sans text-sm outline-none transition-colors duration-200 focus:border-[#E8650A] focus:bg-white"
+                />
               </div>
 
-              <div className="cp-input-group">
-                <label>I am a...</label>
-                <select className="cp-field" onChange={(e) => setFormData({ ...formData, role: e.target.value })}>
+              <div className="mb-4">
+                <label className="mb-2 block text-[11px] font-extrabold uppercase tracking-[0.05em] text-[#999999]">I am a...</label>
+                <select
+                  onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                  className="w-full rounded-lg border border-black/[0.08] bg-[#F9F9F9] px-3.5 py-3 font-sans text-sm outline-none transition-colors duration-200 focus:border-[#E8650A] focus:bg-white"
+                >
                   <option>Job Seeker</option>
                   <option>Employer</option>
                   <option>Training Partner</option>
@@ -271,50 +229,76 @@ export default function ContactPage() {
                 </select>
               </div>
 
-              <div className="cp-input-group">
-                <label>Your Message</label>
-                <textarea className="cp-field" rows="4" placeholder="How can we help you?" onChange={(e) => setFormData({ ...formData, message: e.target.value })}></textarea>
+              <div className="mb-4">
+                <label className="mb-2 block text-[11px] font-extrabold uppercase tracking-[0.05em] text-[#999999]">Your Message</label>
+                <textarea
+                  rows="4"
+                  placeholder="How can we help you?"
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full rounded-lg border border-black/[0.08] bg-[#F9F9F9] px-3.5 py-3 font-sans text-sm outline-none transition-colors duration-200 focus:border-[#E8650A] focus:bg-white"
+                ></textarea>
               </div>
 
-              <button type="submit" className="cp-btn">
+              <button
+                type="submit"
+                className="flex w-full items-center justify-center gap-2.5 rounded-lg border-none bg-[#111111] p-[15px] text-sm font-bold text-white transition-colors duration-200 ease-in-out hover:bg-[#E8650A]"
+              >
                 Send Message <Send size={16} />
               </button>
             </form>
           </div>
         </div>
 
-        <div className="cp-map-full">
-          <div className="cp-section-label">Location</div>
-          <h2 className="cp-section-title">Our office <em style={{ fontFamily: "'Crimson Pro', serif", fontStyle: 'italic', color: '#E8650A', fontWeight: 600 }}>on the map</em></h2>
-          <div className="cp-map-wrap">
+        {/* MAP */}
+        <div className="-mt-5 pb-[60px]">
+          <div className="mb-2.5 text-[11px] font-extrabold uppercase tracking-[.18em] text-black/40">Location</div>
+          <h2 className="mb-5 text-2xl font-black tracking-[-0.5px]">
+            Our office <em className="font-['Crimson_Pro',serif] font-semibold italic text-[#E8650A]">on the map</em>
+          </h2>
+          <div className="mb-4 overflow-hidden rounded-xl border border-black/[0.06]">
             <iframe
               title="Skill Yuva Bharat office location"
               src="https://maps.google.com/maps?q=31%2F15%2C%20Morrison%204th%20St%2C%20Ramapuram%2C%20Hudco%20Colony%20Layout%2C%20Pazhavanthangal%2C%20Chennai%2C%20St.%20Thomas%20Mount%2C%20Tamil%20Nadu%20600016&t=&z=15&ie=UTF8&iwloc=&output=embed"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
+              className="block h-[380px] w-full border-0"
             ></iframe>
           </div>
         </div>
       </div>
 
       {/* FAQ */}
-      <div className="cp-faq-wrap">
-        <div className="cp-faq-head">
-          <div className="cp-section-label" style={{ justifyContent: 'center', display: 'flex' }}>Before You Write to Us</div>
-          <h2 className="cp-section-title">Quick <em style={{ fontFamily: "'Crimson Pro', serif", fontStyle: 'italic', color: '#E8650A', fontWeight: 600 }}>answers</em></h2>
+      <div className="mx-auto max-w-[760px] px-6 pt-5 pb-[90px]">
+        <div className="mb-9 text-center">
+          <div className="mb-2.5 flex justify-center text-[11px] font-extrabold uppercase tracking-[.18em] text-black/40">Before You Write to Us</div>
+          <h2 className="mb-5 text-2xl font-black tracking-[-0.5px]">
+            Quick <em className="font-['Crimson_Pro',serif] font-semibold italic text-[#E8650A]">answers</em>
+          </h2>
         </div>
-        {FAQS.map((f, i) => (
-          <div className={`cp-faq-item ${openFaq === i ? 'open' : ''}`} key={i}>
-            <div className="cp-faq-q" onClick={() => setOpenFaq(openFaq === i ? -1 : i)}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <HelpCircle size={17} color="#1A7A2E" />
-                {f.q}
-              </span>
-              <ChevronDown size={18} />
+        {FAQS.map((f, i) => {
+          const isOpen = openFaq === i;
+          return (
+            <div key={i} className="mb-3 overflow-hidden rounded-xl border border-black/[0.06] bg-white">
+              <div
+                onClick={() => setOpenFaq(isOpen ? -1 : i)}
+                className="flex cursor-pointer items-center justify-between gap-3 p-[18px_22px] text-[14.5px] font-bold"
+              >
+                <span className="flex items-center gap-2.5">
+                  <HelpCircle size={17} color="#1A7A2E" />
+                  {f.q}
+                </span>
+                <ChevronDown size={18} className={`flex-shrink-0 text-[#E8650A] transition-transform duration-[250ms] ${isOpen ? 'rotate-180' : ''}`} />
+              </div>
+              <div
+                className={`overflow-hidden px-[22px] text-[13.5px] leading-[1.7] text-[#666666] transition-all duration-300 ease-in-out ${
+                  isOpen ? 'max-h-[200px] pb-5' : 'max-h-0'
+                }`}
+              >
+                {f.a}
+              </div>
             </div>
-            <div className="cp-faq-a">{f.a}</div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
